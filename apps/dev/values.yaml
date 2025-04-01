@@ -1,0 +1,19 @@
+replicaCount: 1
+
+image:
+  repository: cqqcsa/test
+  tag: v1
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+config:
+  applicationYaml: |
+    spring:
+      profiles:
+        active: dev
+    server:
+      port: 8080

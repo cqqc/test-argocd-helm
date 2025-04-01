@@ -1,19 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: app-of-apps
+  name: hello-deploy
   namespace: argocd
 spec:
-  project: default
+  project: hello-deploy
   source:
     repoURL: https://github.com/cqqc/test-argocd-helm
     targetRevision: main
-    path: apps
+    path: charts/hello-deploy
+    helm:
+      valueFiles:
+        - ../../apps/dev/values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: dev
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-  sources: []
